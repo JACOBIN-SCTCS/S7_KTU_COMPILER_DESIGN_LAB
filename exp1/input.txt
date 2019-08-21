@@ -1,0 +1,14 @@
+<<<<<<< HEAD
+def hello (x):
+	x=9
+	return 9
+
+x = 18
+print 3
+=======
+# Hello world
+t=5
+def hello(x):
+	return 2
+
+>>>>>>> 94dab65e7ce9dc959256b7a26862fec46e56a5c3
