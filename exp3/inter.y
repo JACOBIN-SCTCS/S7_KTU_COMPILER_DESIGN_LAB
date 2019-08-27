@@ -1,48 +1,73 @@
 %{
+
 	#include<stdio.h>
-	#include <stdlib.h>
+	#include<stdlib.h>
 	#include<string.h>
-	
+
 	extern int yylex();
 	void yyerror(char *s);
 	
-	struct astnode
-	{
-		char operator[20];
-		struct astnode *left;
-		struct astnode *right;	
-	};
+	int tempcount=0;
+
+	extern FILE *yyout;				
 %}
 
 %union
 {
-	char variable[20];
-	struct astnode *node;
+	char id[30];
 }
+%token<id> ID NUMBER 
+%type<id> expr 
 
-%start start
-%left '+' '-' '*' '/' 
-%token<variable> ID NUMBER
-%type<node> expr 
+%left '+' '-' 
+%left '*' '/'
+%start start 
+
+%%
+start : ID '=' expr'\n' {	fprintf(yyout,"%s := %s\n",$1 , $3); fclose(yyout); exit(0);	}
+
+expr : expr '+' expr	{ 	
+     				tempcount+=1;
+     				fprintf(yyout,"t%d := %s + %s\n",tempcount,$1,$3);	
+				sprintf($$,"t%d",tempcount);
+			}
+     |	 expr '-' expr  {       
+				tempcount+=1;
+                                fprintf(yyout,"t%d := %s - %s\n",tempcount,$1,$3);
+                                sprintf($$,"t%d",tempcount);
+                        }
+     |   expr '*' expr  {      
+				tempcount+=1;
+                                fprintf(yyout,"t%d := %s * %s\n",tempcount,$1,$3);
+                                sprintf($$,"t%d",tempcount);
+                        } 
+      |  expr '/' expr  {       
+				tempcount+=1;
+                                fprintf(yyout,"t%d := %s / %s\n",tempcount,$1,$3);
+                                sprintf($$,"t%d",tempcount);
+                        }
+     | '(' expr ')'	{
+				tempcount+=1;
+				fprintf(yyout,"t%d := %s\n",tempcount,$2);
+				sprintf($$,"t%d",tempcount);
+			}
+			
+
+     | 	ID 		{;}
+     |	NUMBER		{;}  
 
 
 %%
-start : expr ';'  { generatepostorder($1); generateintercode(); exit(0); }
-expr : expr '+' expr { $$ = makenode("+\0",$1,$3);	}	
-     | expr '-' expr { $$ = makenode("-\0",$1,$3);	}
-     | expr '*' expr { $$ = makenode("*\0",$1,$3);	}
-     | expr '/' expr { $$ = makenode("/\0",$1,$3);	}
-     | '(' expr ')   { $$ =$2;				}
-     | ID 	     { $$ = makenode
-%%
+
 
 void yyerror(char *s)
 {
-	fprintf(stdout,"INVALID EXPRESSION\n");
+	fprintf(stdout,"Error generating code");
 }
-
 
 int main()
 {
-	 yyparse();
+	yyout = fopen("output.txt","w");
+	yyparse();
 }
+

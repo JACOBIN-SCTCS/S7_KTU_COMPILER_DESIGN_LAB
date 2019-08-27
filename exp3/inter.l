@@ -1,15 +1,14 @@
 %{
-	#include <stdio.h>
-	#include <stdlib.h>
+	#include<stdio.h>
 	#include "inter.tab.h"
 %}
 
 %%
-[a-z]+|[A-Z]+	{	strcpy(yylval.variable,yytext); return ID ; }
-[0-9]+	 	{ 	strcpy(yylval.variable,yytext); return NUMBER; }
-[+|\-|*|/|\(|\)]{       return *yytext; 		}
+[0-9]+	{ strcpy(yylval.id,yytext); return NUMBER; }
+[a-z]+	{ strcpy(yylval.id,yytext); return ID;	   }
+[+|\-|*|\/|(|)|\=]	{ return *yytext;	}
+[\n]			{ return *yytext;	}
 %%
-
 
 int yywrap()
 {
