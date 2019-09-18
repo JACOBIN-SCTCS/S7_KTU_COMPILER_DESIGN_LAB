@@ -1,15 +1,15 @@
 #include<iostream>
 #include<vector>
+
 using namespace std;
 
 class ENFA
 {
 	int number_of_states;
 	int number_of_symbols;
-
 	vector<vector<char>>  adjacency_matrix;
 
-	ENFA(int no_of_states, no_of_symbols)
+	ENFA(int no_of_states, int no_of_symbols)
 	{
 		number_of_states = no_of_states;
 		number_of_symbols = no_of_symbols;
@@ -17,7 +17,7 @@ class ENFA
 
 	void initialize()
 	{
-		boolean yes;
+		bool yes;
 		int  symbol;
 
 		for(int i=0;i<number_of_states;++i)
