@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-void main()
+int main()
 {
 	char NFA[30][30];
 	int input_symbols , input_symbol;
@@ -55,4 +55,6 @@ void main()
 		}
 
 	}
+return 0;
+
 }

@@ -26,6 +26,7 @@ exp :   NUMBER 	   {;}
 	| exp '/' exp  {;}
 	| '(' exp ')'  {;}
 	| exp '%' exp  {;}
+	| '-' exp      {;}
 	;
 
 %%

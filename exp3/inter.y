@@ -19,7 +19,7 @@
 %token<id> ID NUMBER 
 %type<id> expr 
 
-%left '+' '-' 
+%left '-' '+'  
 %left '*' '/'
 %start start 
 
@@ -51,7 +51,18 @@ expr : expr '+' expr	{
 				fprintf(yyout,"t%d := %s\n",tempcount,$2);
 				sprintf($$,"t%d",tempcount);
 			}
-			
+     | '-' ID           {
+				tempcount+=1;	
+				fprintf(yyout,"t%d := -%s\n",tempcount,$2);
+				sprintf($$,"t%d",tempcount);
+			}
+     | '-' NUMBER       {
+				tempcount+=1;	
+				fprintf(yyout,"t%d := -%s\n",tempcount,$2);
+				sprintf($$,"t%d",tempcount);
+			}
+
+   
 
      | 	ID 		{;}
      |	NUMBER		{;}  
