@@ -10,7 +10,7 @@ void main()
 	fp =fopen("inter.txt","r");
 	out = fopen("program.asm","w");
 
-	while(fp != NULL)
+	while(!feof(fp))
 	{
 		fscanf(fp,"%s",input_string);
 		printf("%s\n",input_string);
