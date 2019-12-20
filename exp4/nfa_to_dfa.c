@@ -1,3 +1,10 @@
+
+/*
+ 
+	THIS IS NOT AN EFFICIENT APPROACH FOR THIS PROBLEM AND THE IMPLEMENTATION CAN BE PRONE TO ERRORS
+
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
