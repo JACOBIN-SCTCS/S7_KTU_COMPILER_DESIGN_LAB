@@ -7,8 +7,7 @@
 %%
 [a-z]|[A-Z]:	{ return letter; }
 [0-9]   {return digit ;  }
-'\_'    { return *yytext;}
-[\n]    { return *yytext;}
+[_|\n]    { return *yytext;}   
 
 %%
 
